@@ -301,3 +301,9 @@ Imports are **additive** — existing tins are never modified or deleted.
 ## Contributing
 
 Issues and pull requests welcome. To become a contributor, please email tinvault29@gmail.com. Otherwise, open an issue to discuss changes before submitting large PRs.
+
+---
+
+## License
+
+TinVault is licensed under the [GNU AGPL v3.0](LICENSE). In short: You are free to use, modify, and self-host it, but if you distribute it or run it as a network service with modifications, you must make your source code available under the same license.
