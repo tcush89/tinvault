@@ -18,7 +18,7 @@ See [github.com/docker/docker-install](https://github.com/docker/docker-install)
 
 The deploy script checks your environment, prompts for a port and password, pulls the images from Docker Hub, and starts TinVault. Pick the version for your OS:
 
-### Mac / Linux
+### Linux / Mac
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/tcush89/tinvault/main/deploy.sh -o deploy.sh
