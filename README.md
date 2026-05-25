@@ -8,24 +8,49 @@ A self-hosted, open-source pipe tobacco cellar inventory tracker. Log your tins 
 
 ## Quick Deploy
 
-The fastest path: Download and run the deploy script. It checks your environment, prompts for a port and password, pulls the images from Docker Hub, and starts TinVault.
+**Prerequisites:** Docker + Docker Compose, or [Docker Desktop](https://docs.docker.com/desktop/) (includes both)
 
-**Prerequisites:** [Docker](https://docs.docker.com/get-docker/) with Docker Compose
+On Linux, the quickest way to get Docker and Compose:
+```bash
+curl -fsSL https://get.docker.com | sh
+```
+See [github.com/docker/docker-install](https://github.com/docker/docker-install) for details. On Windows, use Docker Desktop.
+
+The deploy script checks your environment, prompts for a port and password, pulls the images from Docker Hub, and starts TinVault. Pick the version for your OS:
+
+### Mac / Linux
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/tcush89/tinvault/main/deploy.sh -o deploy.sh
 bash deploy.sh
 ```
 
-Or clone the repo and run it directly:
+### Windows
+
+Open **PowerShell** and run:
+
+```powershell
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/tcush89/tinvault/main/deploy.ps1 -OutFile deploy.ps1
+powershell -ExecutionPolicy Bypass -File deploy.ps1
+```
+
+> **Why `-ExecutionPolicy Bypass`?** Windows blocks unsigned scripts by default. This flag allows the deploy script to run for this one invocation without changing your system policy permanently.
+
+### Or clone and run
 
 ```bash
-git clone https://github.com/tcush89/tinvault
-cd tinvault
+# Mac / Linux
+git clone https://github.com/tcush89/tinvault && cd tinvault
 bash deploy.sh
 ```
 
-The script will:
+```powershell
+# Windows (PowerShell)
+git clone https://github.com/tcush89/tinvault; cd tinvault
+powershell -ExecutionPolicy Bypass -File deploy.ps1
+```
+
+Both scripts will:
 - Verify Docker and Docker Compose are installed and the daemon is running
 - Prompt for a port (default `3000`) and a PostgreSQL password (auto-generated if blank)
 - Write a `.env` and `docker-compose.yml` in the current directory
@@ -90,9 +115,19 @@ TinVault binds to a local port. To reach it from outside your home network, Tail
 If you prefer to manage the compose file yourself:
 
 ```bash
+# Mac / Linux
 git clone https://github.com/tcush89/tinvault
 cd tinvault
 cp .env.example .env
+# Edit .env to set POSTGRES_PASSWORD and PORT
+docker compose up -d
+```
+
+```powershell
+# Windows (PowerShell)
+git clone https://github.com/tcush89/tinvault
+cd tinvault
+Copy-Item .env.example .env
 # Edit .env to set POSTGRES_PASSWORD and PORT
 docker compose up -d
 ```
