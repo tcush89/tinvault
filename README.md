@@ -10,7 +10,7 @@ A self-hosted, open-source pipe tobacco cellar inventory tracker. Log your tins 
 
 **Prerequisites:** Docker + Docker Compose, or [Docker Desktop](https://docs.docker.com/desktop/) (includes both)
 
-On Linux, the quickest way to get Docker and Compose:
+On Linux/Mac, the quickest way to get Docker and Compose:
 ```bash
 curl -fsSL https://get.docker.com | sh
 ```
