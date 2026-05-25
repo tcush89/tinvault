@@ -13,14 +13,14 @@ The fastest path: download and run the deploy script. It checks your environment
 **Prerequisites:** [Docker](https://docs.docker.com/get-docker/) with Docker Compose
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/tinvault/main/deploy.sh -o deploy.sh
+curl -fsSL https://raw.githubusercontent.com/tcush89/tinvault/main/deploy.sh -o deploy.sh
 bash deploy.sh
 ```
 
 Or clone the repo and run it directly:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/tinvault
+git clone https://github.com/tcush89/tinvault
 cd tinvault
 bash deploy.sh
 ```
@@ -121,7 +121,7 @@ AllowedIPs = 10.0.0.2/32
 If you prefer to manage the compose file yourself:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/tinvault
+git clone https://github.com/tcush89/tinvault
 cd tinvault
 cp .env.example .env
 # Edit .env to set POSTGRES_PASSWORD and PORT
