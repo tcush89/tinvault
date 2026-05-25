@@ -23,3 +23,6 @@ backend/*.exe
 
 # Docker override files
 docker-compose.override.yml
+
+# GitHub key
+github_key.md
