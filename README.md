@@ -1,6 +1,6 @@
 # TinVault
 
-A self-hosted pipe tobacco cellar tracker. Log your tins and bulk tobacco, track aging status, filter and sort your collection, and import/export via CSV — all from a clean web UI with no cloud account required.
+A self-hosted, open-source pipe tobacco cellar inventory tracker. Log your tins and bulk tobacco, track aging status, filter and sort your collection, and import/export via CSV, all from a clean web UI.
 
 **Stack:** React 18 · Go · PostgreSQL 16 · Docker Compose
 
@@ -8,7 +8,7 @@ A self-hosted pipe tobacco cellar tracker. Log your tins and bulk tobacco, track
 
 ## Quick Deploy
 
-The fastest path: download and run the deploy script. It checks your environment, prompts for a port and password, pulls the images from Docker Hub, and starts TinVault.
+The fastest path: Download and run the deploy script. It checks your environment, prompts for a port and password, pulls the images from Docker Hub, and starts TinVault.
 
 **Prerequisites:** [Docker](https://docs.docker.com/get-docker/) with Docker Compose
 
@@ -37,9 +37,9 @@ Open **http://localhost:PORT** when it finishes.
 
 ## SSL & Reverse Proxy
 
-> **TinVault has no built-in authentication.** It is designed for personal, self-hosted use on a trusted network. For any access beyond `localhost`, place it behind a reverse proxy that handles HTTPS and, optionally, authentication.
+> TinVault has no built-in authentication. It is designed for personal, self-hosted use on a trusted network. For any access beyond `localhost`, place it behind a reverse proxy that handles HTTPS and, optionally, authentication.
 
-This applies even on an internal home network — a reverse proxy with a self-signed or local CA certificate is easy to set up and prevents credentials (if you add auth) from travelling in plaintext.
+This applies even on an internal home network. A reverse proxy with a self-signed or Let's Encrypt is easy to set up.
 
 ### Caddy (recommended — automatic HTTPS)
 
@@ -77,42 +77,11 @@ server {
 
 Generate credentials: `htpasswd -c /etc/nginx/.htpasswd alice`
 
-### Traefik
-
-Add TinVault as a Docker Compose service behind Traefik with labels:
-
-```yaml
-labels:
-  - "traefik.enable=true"
-  - "traefik.http.routers.tinvault.rule=Host(`tinvault.example.com`)"
-  - "traefik.http.routers.tinvault.entrypoints=websecure"
-  - "traefik.http.routers.tinvault.tls.certresolver=letsencrypt"
-```
-
 ---
 
 ## Remote Access
 
-TinVault binds to a local port. To reach it from outside your home network:
-
-### Tailscale (easiest)
-
-[Tailscale](https://tailscale.com) creates a private WireGuard mesh between your devices. Install it on your server and any client, then open `http://<tailscale-ip>:3000`. No port forwarding or firewall changes needed.
-
-### WireGuard
-
-Self-host the VPN. With an active tunnel, TinVault is reachable at its LAN address as if you were home. Minimal server config (`/etc/wireguard/wg0.conf`):
-
-```ini
-[Interface]
-Address = 10.0.0.1/24
-ListenPort = 51820
-PrivateKey = <server-private-key>
-
-[Peer]
-PublicKey = <client-public-key>
-AllowedIPs = 10.0.0.2/32
-```
+TinVault binds to a local port. To reach it from outside your home network, Tailscale or Wireguard are recommended.
 
 ---
 
@@ -296,4 +265,4 @@ Imports are **additive** — existing tins are never modified or deleted.
 
 ## Contributing
 
-Issues and pull requests welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) if present, otherwise open an issue to discuss changes before submitting large PRs.
+Issues and pull requests welcome. To become a contributor, please email tinvault29@gmail.com. Otherwise, open an issue to discuss changes before submitting large PRs.
