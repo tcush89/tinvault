@@ -106,8 +106,6 @@ ok ".env created"
 # Generate docker-compose.yml only if one does not already exist
 if [[ ! -f docker-compose.yml ]]; then
 cat > docker-compose.yml <<COMPOSE
-version: '3.9'
-
 services:
   postgres:
     image: postgres:16-alpine

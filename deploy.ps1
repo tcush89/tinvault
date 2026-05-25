@@ -107,8 +107,6 @@ Write-Ok ".env created"
 if (-not (Test-Path "docker-compose.yml")) {
     # Note: `${ } escapes the $ so docker compose variables are written literally
     @"
-version: '3.9'
-
 services:
   postgres:
     image: postgres:16-alpine
