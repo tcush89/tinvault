@@ -18,7 +18,7 @@ services:
 
   backend:
     build: ./backend
-    image: tinvault/backend:latest
+    image: tcush89/tinvault-backend:latest
     environment:
       DATABASE_URL: postgres://tinvault:${POSTGRES_PASSWORD:-tinvault}@postgres:5432/tinvault?sslmode=disable
       PORT: 8080
@@ -29,7 +29,7 @@ services:
 
   frontend:
     build: ./frontend
-    image: tinvault/frontend:latest
+    image: tcush89/tinvault-frontend:latest
     ports:
       - "${PORT:-3000}:80"
     depends_on:
