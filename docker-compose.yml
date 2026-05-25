@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: tinvault
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tinvault}
+      POSTGRES_DB: tinvault
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tinvault"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    image: tinvault/backend:latest
+    environment:
+      DATABASE_URL: postgres://tinvault:${POSTGRES_PASSWORD:-tinvault}@postgres:5432/tinvault?sslmode=disable
+      PORT: 8080
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    image: tinvault/frontend:latest
+    ports:
+      - "${PORT:-3000}:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
